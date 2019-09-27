@@ -1,11 +1,11 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}User index{% endblock %}
+{% block title %}{% trans %}user{% endtrans %} {% trans %}index{% endtrans %}{% endblock %}
 
 {% block body %}
     {% if app.user %}
         <div class="mb-3">
-            You are logged in as {{ app.user.username }}, <a href="{{ path('app_logout') }}">{% trans %}Logout{% endtrans %}</a>
+            {% trans %}logged_as{% endtrans %} {{ app.user.username }}, <a href="{{ path('app_logout') }}">{% trans %}logout{% endtrans %}</a>
         </div>
     {% endif %}
 
@@ -14,36 +14,38 @@
     <table class="table">
         <thead>
             <tr>
-                <th>{% trans %}Id{% endtrans %}</th>
-                <th>{% trans %}Email{% endtrans %}</th>
-                <th>{% trans %}Name{% endtrans %}</th>
-                <th>{% trans %}Date of birth{% endtrans %}</th>
+                <th>{% trans %}id{% endtrans %}</th>
+                <th>{% trans %}name{% endtrans %}</th>
+                <th>{% trans %}email{% endtrans %}</th>
+                <th>{% trans %}date_of_birth{% endtrans %}</th>
+                <th>{% trans %}country{% endtrans %}</th>
+                <th>{% trans %}city{% endtrans %}</th>
+                <th>{% trans %}last_login{% endtrans %}</th>
                 <th>{% trans %}actions{% endtrans %}</th>
-                <th>{% trans %}Status{% endtrans %}</th>
             </tr>
         </thead>
         <tbody>
         {% for user in users %}
             <tr>
                 <td>{{ user.id }}</td>
-                <td>{{ user.email }}</td>
                 <td>{{ user.name }}</td>
+                <td>{{ user.email }}</td>
                 <td>{{ user.dateOfBirth|date('Y-m-d') }}</td>
+                <td>{{ user.country }}</td>
+                <td>{{ user.city }}</td>
+                <td>{{ user.lastLogin|date('Y-m-d H:i:s') }}</td>
                 <td>
                     <a href="{{ path('user_show', {'id': user.id}) }}">show</a>
                     <a href="{{ path('user_edit', {'id': user.id}) }}">edit</a>
                 </td>
-                {% if is_granted('IS_AUTHENTICATED_FULLY') %}
-                    <td>online</td>
-                {% endif %}
             </tr>
         {% else %}
             <tr>
-                <td colspan="5">no records found</td>
+                <td colspan="5">{% trans %}no_records_found{% endtrans %}</td>
             </tr>
         {% endfor %}
         </tbody>
     </table>
 
-    <a href="{{ path('app_register') }}">Register new</a>
+    <a href="{{ path('app_register') }}">{% trans %}register{% endtrans %}</a>
 {% endblock %}

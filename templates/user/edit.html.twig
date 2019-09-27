@@ -1,9 +1,15 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Edit User{% endblock %}
+{% block title %}{% trans %}edit{% endtrans %} {% trans %}user{% endtrans %}{% endblock %}
 
 {% block body %}
-    <h1>{% trans %}Edit{% endtrans %} {% trans %}User{% endtrans %}</h1>
+    {% if app.user %}
+        <div class="mb-3">
+            You are logged in as {{ app.user.username }}, <a href="{{ path('app_logout') }}">{% trans %}logout{% endtrans %}</a>
+        </div>
+    {% endif %}
+
+    <h1>{% trans %}edit{% endtrans %} {% trans %}user{% endtrans %}</h1>
 
     {{ include('user/_form.html.twig', {'button_label': 'Update'}) }}
 

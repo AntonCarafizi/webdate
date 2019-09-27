@@ -1,27 +1,41 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}User{% endblock %}
+{% block title %}{% trans %}user{% endtrans %}{% endblock %}
 
 {% block body %}
+    {% if app.user %}
+        <div class="mb-3">
+            {% trans %}logged_as{% endtrans %} {{ app.user.username }}, <a href="{{ path('app_logout') }}">{% trans %}logout{% endtrans %}</a>
+        </div>
+    {% endif %}
+
     <h1>User</h1>
 
     <table class="table">
         <tbody>
             <tr>
-                <th>Id</th>
-                <td>{{ user.id }}</td>
+                <th>{% trans %}name{% endtrans %}</th>
+                <td>{{ user.name }}</td>
             </tr>
             <tr>
-                <th>Email</th>
+                <th>{% trans %}email{% endtrans %}</th>
                 <td>{{ user.email }}</td>
             </tr>
             <tr>
-                <th>Roles</th>
-                <td>{{ user.roles ? user.roles|json_encode : '' }}</td>
+                <th>{% trans %}date_of_birth{% endtrans %}</th>
+                <td>{{ user.dateOfBirth|date('Y-m-d') }}</td>
             </tr>
             <tr>
-                <th>Password</th>
-                <td>{{ user.password }}</td>
+                <th>{% trans %}country{% endtrans %}</th>
+                <td>{{ user.country }}</td>
+            </tr>
+            <tr>
+                <th>{% trans %}city{% endtrans %}</th>
+                <td>{{ user.city }}</td>
+            </tr>
+            <tr>
+                <th>{% trans %}last_login{% endtrans %}</th>
+                <td>{{ user.lastLogin|date('Y-m-d H:i:s') }}</td>
             </tr>
         </tbody>
     </table>
