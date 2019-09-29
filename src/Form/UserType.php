@@ -9,20 +9,20 @@ use Symfony\Component\Form\Extension\Core\Type\CountryType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Intl\Countries;
-use Symfony\Component\Translation\Translator;
+use Symfony\Component\Form\Extension\Core\Type\FileType;
 
 
 class UserType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $translator = new Translator('en');
+        //$translator = new Translator('en');
         $countries = Countries::getNames();
-        $countries_en = [];
-        foreach ($countries as $country) {
+        //$countries_en = [];
+        /*foreach ($countries as $country) {
             $countries_en[] = $translator->trans($country);
         }
-
+        */
         $builder
             ->add('name', null,
                 [
@@ -40,14 +40,25 @@ class UserType extends AbstractType
                 [
                     'label' => 'country',
                     'placeholder' => 'choose_a_country',
-                    'choices' => array_flip($countries_en),
+                    'choices' => array_flip($countries),
                     'expanded' => false,
             ])
             ->add('city', null,
                 [
                     'label' => 'city',
             ])
-        ;
+            ->add('photos', FileType::class, [
+                'label' => 'Photos (JPG file)',
+
+                // unmapped means that this field is not associated to any entity property
+                'mapped' => false,
+                'multiple' => true,
+
+                // make it optional so you don't have to re-upload the PDF file
+                // everytime you edit the Product details
+                'required' => false,
+            ]);
+
     }
 
     public function configureOptions(OptionsResolver $resolver)

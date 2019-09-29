@@ -17,6 +17,7 @@ logout: Logout
 country: Country
 city: City
 new: new
+images: Images
 no_records_found: No records found
 choose_a_country: Choose a country
 delete_item: Are you sure you want to delete this item?

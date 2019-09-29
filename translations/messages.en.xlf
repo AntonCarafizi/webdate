@@ -81,6 +81,10 @@
         <source>new</source>
         <target>new</target>
       </trans-unit>
+      <trans-unit id="IbLu0eM" resname="images">
+        <source>images</source>
+        <target>Images</target>
+      </trans-unit>
       <trans-unit id="oQmcLRD" resname="no_records_found">
         <source>no_records_found</source>
         <target>No records found</target>

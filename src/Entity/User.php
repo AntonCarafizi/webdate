@@ -65,6 +65,10 @@ class User implements UserInterface
      */
     private $lastLogin;
 
+    /**
+     * @ORM\Column(type="array", nullable=true)
+     */
+    private $photos = [];
 
     public function getId(): ?int
     {
@@ -215,4 +219,17 @@ class User implements UserInterface
 
         return $this;
     }
+
+    public function getPhotos(): ?array
+    {
+        return $this->photos;
+    }
+
+    public function setPhotos(?array $photos): self
+    {
+        $this->photos = $photos;
+
+        return $this;
+    }
+
 }
