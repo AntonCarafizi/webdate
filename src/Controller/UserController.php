@@ -65,7 +65,7 @@ class UserController extends AbstractController
      */
     public function edit(Request $request, User $user): Response
     {
-        $fileUploader = new FileUploader('photos');
+        $fileUploader = new FileUploader('photos/userId-' . $user->getId());
         $form = $this->createForm(UserType::class, $user);
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
