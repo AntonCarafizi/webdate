@@ -37,6 +37,10 @@
         <source>actions</source>
         <target>__actions</target>
       </trans-unit>
+      <trans-unit id="hKba5Jz" resname="photos">
+        <source>photos</source>
+        <target>photos</target>
+      </trans-unit>
       <trans-unit id="BPiZbad" resname="user">
         <source>user</source>
         <target>User</target>

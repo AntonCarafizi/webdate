@@ -37,6 +37,16 @@
                 <th>{% trans %}last_login{% endtrans %}</th>
                 <td>{{ user.lastLogin|date('Y-m-d H:i:s') }}</td>
             </tr>
+            <tr>
+                <th>{% trans %}photos{% endtrans %}</th>
+                <td>
+                    <ul>
+                        {% for photo in user.photos %}
+                            <li><img src="/photos/userId-{{ user.id }}/{{ photo }}" alt="" width="200"></li>
+                        {% endfor %}
+
+                    </ul>
+                </td>
         </tbody>
     </table>
 

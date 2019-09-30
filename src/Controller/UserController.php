@@ -76,12 +76,16 @@ class UserController extends AbstractController
                     $photoName = $fileUploader->upload($photo);
                     $photos_array[]= $photoName;
                 }
-               $user->setPhotos($photos_array);
+                if ($user->getPhotos()) {
+                    $user->addPhoto($photos_array);
+                } else {
+                    $user->setPhotos($photos_array);
+                }
             }
 
             $this->getDoctrine()->getManager()->flush();
 
-            return $this->redirectToRoute('user_index');
+            return $this->redirectToRoute('user_show', ['id' => $user->getId()]);
         }
 
         return $this->render('user/edit.html.twig', [

@@ -232,4 +232,11 @@ class User implements UserInterface
         return $this;
     }
 
+    public function addPhoto(?array $photos): self
+    {
+        $this->photos = array_merge($this->photos, $photos);
+
+        return $this;
+    }
+
 }

@@ -16,13 +16,8 @@ class UserType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        //$translator = new Translator('en');
         $countries = Countries::getNames();
-        //$countries_en = [];
-        /*foreach ($countries as $country) {
-            $countries_en[] = $translator->trans($country);
-        }
-        */
+
         $builder
             ->add('name', null,
                 [
