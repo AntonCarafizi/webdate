@@ -42,7 +42,7 @@
                 <td>
                     <ul>
                         {% for photo in user.photos %}
-                            <li><img src="/photos/userId-{{ user.id }}/{{ photo }}" alt="" width="200"></li>
+                            <li><img src="/photos/userId-{{ user.id }}/{{ photo.file }}" alt="{{ photo.alt }}" width="200"></li>
                         {% endfor %}
 
                     </ul>
@@ -51,8 +51,9 @@
     </table>
 
     <a href="{{ path('user_index') }}">back to list</a>
-
-    <a href="{{ path('user_edit', {'id': user.id}) }}">edit</a>
+    {% if app.user and user.id == app.user.id %}
+        <a href="{{ path('user_edit', {'id': user.id}) }}">edit</a>
+    {% endif %}
 
     {{ include('user/_delete_form.html.twig') }}
 {% endblock %}

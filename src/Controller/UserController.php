@@ -5,7 +5,6 @@ namespace App\Controller;
 use App\Entity\User;
 use App\Form\UserType;
 use App\Repository\UserRepository;
-use App\Service\FileUploader;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -54,6 +53,7 @@ class UserController extends AbstractController
      */
     public function show(User $user): Response
     {
+        //var_dump($user->getPhotos()); die();
 
         return $this->render('user/show.html.twig', [
             'user' => $user,
@@ -65,23 +65,9 @@ class UserController extends AbstractController
      */
     public function edit(Request $request, User $user): Response
     {
-        $fileUploader = new FileUploader('photos/userId-' . $user->getId());
         $form = $this->createForm(UserType::class, $user);
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
-            $photos = $form['photos']->getData();
-            if ($photos) {
-                $photos_array = [];
-                foreach ($photos as $photo) {
-                    $photoName = $fileUploader->upload($photo);
-                    $photos_array[]= $photoName;
-                }
-                if ($user->getPhotos()) {
-                    $user->addPhoto($photos_array);
-                } else {
-                    $user->setPhotos($photos_array);
-                }
-            }
 
             $this->getDoctrine()->getManager()->flush();
 

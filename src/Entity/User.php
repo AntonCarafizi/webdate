@@ -2,6 +2,8 @@
 
 namespace App\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\UserInterface;
@@ -66,9 +68,14 @@ class User implements UserInterface
     private $lastLogin;
 
     /**
-     * @ORM\Column(type="array", nullable=true)
+     * @ORM\OneToMany(targetEntity="App\Entity\Photo", mappedBy="user")
      */
-    private $photos = [];
+    private $photos;
+
+    public function __construct()
+    {
+        $this->photos = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -220,23 +227,34 @@ class User implements UserInterface
         return $this;
     }
 
-    public function getPhotos(): ?array
+    /**
+     * @return Collection|Photo[]
+     */
+    public function getPhotos(): Collection
     {
         return $this->photos;
     }
 
-    public function setPhotos(?array $photos): self
+    public function addPhoto(Photo $photo): self
     {
-        $this->photos = $photos;
+        if (!$this->photos->contains($photo)) {
+            $this->photos[] = $photo;
+            $photo->setUser($this);
+        }
 
         return $this;
     }
 
-    public function addPhoto(?array $photos): self
+    public function removePhoto(Photo $photo): self
     {
-        $this->photos = array_merge($this->photos, $photos);
+        if ($this->photos->contains($photo)) {
+            $this->photos->removeElement($photo);
+            // set the owning side to null (unless already changed)
+            if ($photo->getUser() === $this) {
+                $photo->setUser(null);
+            }
+        }
 
         return $this;
     }
-
 }

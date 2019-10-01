@@ -1,12 +1,4 @@
 {{ form_start(form) }}
-    <ul>
-        {% for photo in user.photos %}
-            <li><img src="/photos/userId-{{ user.id }}/{{ photo }}" alt="" width="200"></li>
-        {% endfor %}
-
-    </ul>
-
     {{ form_widget(form) }}
-
 <button class="btn">{{ button_label|default('{% trans %}Save{% endtrans %}') }}</button>
 {{ form_end(form) }}
