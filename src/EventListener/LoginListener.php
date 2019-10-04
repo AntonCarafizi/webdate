@@ -6,6 +6,7 @@ namespace App\EventListener;
 
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\Security\Http\Event\InteractiveLoginEvent;
+use App\Entity\User;
 
 class LoginListener
 {
@@ -20,6 +21,7 @@ class LoginListener
     {
         // Get the User entity.
         $user = $event->getAuthenticationToken()->getUser();
+
 
         // Update your field here.
         $user->setLastLogin(new \DateTime());

@@ -16,11 +16,13 @@
             <tr>
                 <th>{% trans %}id{% endtrans %}</th>
                 <th>{% trans %}name{% endtrans %}</th>
+                <th>{% trans %}sex{% endtrans %}</th>
                 <th>{% trans %}email{% endtrans %}</th>
-                <th>{% trans %}date_of_birth{% endtrans %}</th>
+                <th>{% trans %}age{% endtrans %}</th>
                 <th>{% trans %}country{% endtrans %}</th>
                 <th>{% trans %}city{% endtrans %}</th>
                 <th>{% trans %}last_login{% endtrans %}</th>
+                <th>{% trans %}status{% endtrans %}</th>
                 <th>{% trans %}actions{% endtrans %}</th>
             </tr>
         </thead>
@@ -29,11 +31,23 @@
             <tr>
                 <td>{{ user.id }}</td>
                 <td>{{ user.name }}</td>
+                <td>{{ user.sex }}</td>
                 <td>{{ user.email }}</td>
-                <td>{{ user.dateOfBirth|date('Y-m-d') }}</td>
+                {#<td>{{ user.dateOfBirth|date('Y-m-d') }}</td>#}
+                <td>{% if user.dateOfBirth %}
+                    {{ user.dateOfBirth | age }}
+                {% endif %}
+                </td>
                 <td>{{ user.country }}</td>
                 <td>{{ user.city }}</td>
                 <td>{{ user.lastLogin|date('Y-m-d H:i:s') }}</td>
+                <td>
+                    {% if 'now'|date('U') < (user.lastLogin|date('U') + 600) %}
+                        online
+                    {% else %}
+                        offline
+                    {% endif %}
+                </td>
                 <td>
                     <a href="{{ path('user_show', {'id': user.id}) }}">show</a>
                     {% if app.user and user.id == app.user.id %}

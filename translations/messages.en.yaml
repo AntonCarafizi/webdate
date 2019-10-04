@@ -2,11 +2,13 @@ id: Id
 name: Name
 email: Email
 date_of_birth: Date of birth
+age: Age
+sex: Sex
 plain_password: Plain Password
 agree_terms: Agree Terms
 status: Status
 actions: actions
-photos: photos
+photos: Photos
 user: User
 index: Index
 edit: Edit

@@ -72,6 +72,11 @@ class User implements UserInterface
      */
     private $photos;
 
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $sex;
+
     public function __construct()
     {
         $this->photos = new ArrayCollection();
@@ -254,6 +259,18 @@ class User implements UserInterface
                 $photo->setUser(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getSex(): ?string
+    {
+        return $this->sex;
+    }
+
+    public function setSex(string $sex): self
+    {
+        $this->sex = $sex;
 
         return $this;
     }

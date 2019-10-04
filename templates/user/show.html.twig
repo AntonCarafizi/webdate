@@ -18,12 +18,19 @@
                 <td>{{ user.name }}</td>
             </tr>
             <tr>
+                <th>{% trans %}sex{% endtrans %}</th>
+                <td>{{ user.sex }}</td>
+            </tr>
+            <tr>
                 <th>{% trans %}email{% endtrans %}</th>
                 <td>{{ user.email }}</td>
             </tr>
             <tr>
-                <th>{% trans %}date_of_birth{% endtrans %}</th>
-                <td>{{ user.dateOfBirth|date('Y-m-d') }}</td>
+                <th>{% trans %}age{% endtrans %}</th>
+                {#<td>{{ user.dateOfBirth|date('Y-m-d') }}</td>#}
+                {% if user.dateOfBirth %}
+                    <td>{{ user.dateOfBirth | age }}</td>
+                {% endif %}
             </tr>
             <tr>
                 <th>{% trans %}country{% endtrans %}</th>
@@ -35,8 +42,19 @@
             </tr>
             <tr>
                 <th>{% trans %}last_login{% endtrans %}</th>
-                <td>{{ user.lastLogin|date('Y-m-d H:i:s') }}</td>
+                <td>{{ user.lastLogin | date('Y-m-d H:i:s') }}</td>
             </tr>
+            <tr>
+                <th>{% trans %}status{% endtrans %}</th>
+                <td>
+                    {% if 'now'|date('U') < (user.lastLogin|date('U') + 600) %}
+                        online
+                    {% else %}
+                        offline
+                    {% endif %}
+                </td>
+            </tr>
+            {% if user.photos is not empty %}
             <tr>
                 <th>{% trans %}photos{% endtrans %}</th>
                 <td>
@@ -47,6 +65,10 @@
 
                     </ul>
                 </td>
+            </tr>
+            {% else %}
+
+            {% endif %}
         </tbody>
     </table>
 
